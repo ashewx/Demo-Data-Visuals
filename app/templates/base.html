@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    body {
+        padding-top: 55px;
+    }
+</style>
+<head>
+    <title>{% block title %}CSE 412 Project 3{% endblock %}</title>
+
+    <!-- Libraries for JS and HTML -->
+    <!-- Bootstrap 4 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+    
+    <!-- FontAwesome -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+    
+    <!-- jQuery -->
+    <script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>
+    
+    <!-- Chart.js -->
+    <script src="js/Chart.bundle.js" type="text/javascript"></script>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand brand-name">
+                <img src="http://foxsportsuniversity.com/wp-content/uploads/2012/08/ASU-pitchfork_4-dk-bkgd.png" height="30" width="40" alt="">
+                CSE412 Database Management
+            </div>
+        </div> <!-- /.container-fluid -->
+    </nav>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="row">
+                <div class="span8 offset4">
+                    <ul>
+                    {% for message in messages %}
+                        <li>{{ message }} </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Main dynamic content -->
+        {% block content %}
+        {% endblock %}
+        <!-- End main dynamic content -->
+    </div>
+</body>
+
