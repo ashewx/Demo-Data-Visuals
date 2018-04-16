@@ -11,7 +11,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from configuration import Config
-from pip._vendor.requests.sessions import session
 
 app = Flask(__name__)
 

@@ -1,6 +1,5 @@
 import os
 from app import app
-from intro_to_flask import app
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
