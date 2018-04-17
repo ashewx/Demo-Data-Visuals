@@ -14,6 +14,9 @@ from configuration import Config
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
+%(pw)s@%(host)s:%(port)s/%(db)s' % configuration.POSTGRES
+
 app.config['DEBUG'] = True
 
 #Configuration of application, see configuration.py, choose one and uncomment.
