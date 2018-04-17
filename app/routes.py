@@ -7,6 +7,6 @@ def index():
 	return render_template('index.html')
         
         
-@app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['GET'])
 def webhook():
-    return null
+    return "Hello World!"
