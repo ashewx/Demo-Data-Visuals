@@ -4,6 +4,7 @@ Flask-Bootstrap==2.2.2-1
 Flask-SQLAlchemy==2.3.2
 Flask-Uploads==0.2.1
 Flask-WTF==0.14.2
+Flask-Migrate==2.1.1
 future==0.16.0
 Jinja2==2.6
 SQLAlchemy==0.8.0b2
