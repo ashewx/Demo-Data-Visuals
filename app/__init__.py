@@ -1,4 +1,5 @@
 from __future__ import print_function
+import sys
 #from future.standard_library import install_aliases
 #install_aliases()
 
@@ -13,9 +14,6 @@ from flask_bootstrap import Bootstrap
 from configuration import Config
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:\
-%(pw)s@%(host)s:%(port)s/%(db)s' % configuration.POSTGRES
 
 app.config['DEBUG'] = True
 
