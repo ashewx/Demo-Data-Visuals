@@ -14,6 +14,8 @@ from configuration import Config
 
 app = Flask(__name__)
 
+app.config['DEBUG'] = True
+
 #Configuration of application, see configuration.py, choose one and uncomment.
 #app.config.from_object('configuration.ProductionConfig')
 #app.config.from_object('configuration.TestingConfig')
