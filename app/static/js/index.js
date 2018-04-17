@@ -1,4 +1,6 @@
 $( document ).ready(function() {
+	Chart.defaults.global.defaultFontColor='white';
+	
 	var ctx = document.getElementById("myChart").getContext('2d');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
