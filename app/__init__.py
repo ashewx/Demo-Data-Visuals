@@ -24,5 +24,6 @@ app.config.from_object(Config)
 
 bs = Bootstrap(app) #flask-bootstrap
 db = SQLAlchemy(app) #flask-sqlalchemy
+migrate = Migrate(app, db)
 
 from app import routes, models
