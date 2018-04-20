@@ -37,7 +37,7 @@ var defaultBar = {
 //		},
 		options: {
 			scales: {
-				yAxes: [{
+				xAxes: [{
 					ticks: {
 						beginAtZero:true
 					}
@@ -68,7 +68,7 @@ function chartNoFilter() {
 		success: function(result){
 			var label = [];
 			var data = [];
-			var charOp = JSON.parse(JSON.stringify(defaultBar));
+			var charOp = JSON.parse(JSON.stringify(defaultBar)); // Copy template
 			
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
@@ -79,7 +79,7 @@ function chartNoFilter() {
 				labels: label,
 				datasets: [{
 					data: data,
-					backgroundColor: 'rgba(255, 99, 132, 0.2)',
+					backgroundColor: 'rgba(255, 99, 132, 0.2)', // Red
 					borderColor: 'rgba(255,99,132,1)',
 					borderWidth: 1
 				}]
@@ -95,6 +95,7 @@ function chartNoFilter() {
 					}
 			}
             
+			// Render the chart
 			countChart = new Chart(countContext, charOp);
 		}
 	});
@@ -107,7 +108,7 @@ function chartNoFilter() {
 		success: function(result){
 			var label = [];
 			var data = [];
-			var charOp = JSON.parse(JSON.stringify(defaultBar));
+			var charOp = JSON.parse(JSON.stringify(defaultBar)); // Copy default template
 			
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
@@ -118,14 +119,18 @@ function chartNoFilter() {
 				labels: label,
 				datasets: [{
 					data: data,
-					backgroundColor: 'rgba(54, 162, 235, 0.2)',
+					backgroundColor: 'rgba(54, 162, 235, 0.2)', // Blue
 					borderColor: 'rgba(54, 162, 235, 1)',
 					borderWidth: 1
 				}]
 			};
 			
 			charOp.data = dataset;
+			
+			// Set the title
 			charOp.options.title.text = "Average Rating Per Movie";
+			
+			// Set the tooltip template of the chart
 			charOp.options.tooltips = {
 					callbacks: {
 						label: function(tooltipItems, data) { 
@@ -134,7 +139,13 @@ function chartNoFilter() {
 					}
 			}
 			
+			// Render the chart
 			avgChart = new Chart(avgContext, charOp);
 		}
 	});
+}
+
+function destroyAllCharts() {
+	avgChart.destroy();
+	countChart.destroy();
 }
