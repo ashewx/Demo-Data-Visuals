@@ -12,6 +12,9 @@
 
     <title>{% block title %}CSE 412 Project 3{% endblock %}</title>
 
+	<!-- Add favicon to the site -->
+	<link rel="icon" type="image/png" href="{{url_for('static', filename='img/favicon.ico')}}">
+	
     <!-- Libraries for JS and HTML -->
     <!-- Bootstrap 4 -->
     <link href="{{url_for('static', filename='css/lib/bootstrap.css')}}" rel="stylesheet"/>
