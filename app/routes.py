@@ -23,6 +23,8 @@ def average():
 	# Generate the SQL query for given parameters
 	if min == None and max == None and title_keyword == None and tag_keyword == None:
 		sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid GROUP BY g.name ORDER BY g.name;"
+	elif min != None and max != None:
+		sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
 	else:
 		sql_query = ""
 	result = dbengine.execute(sql_query)
@@ -32,7 +34,7 @@ def average():
 	r.headers['Content-Type'] = 'application/json'
 	return r
 	
-@app.route('/count', methods=['GET']) # Example URL /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
+@app.route('/count', methods=['GET']) # Example /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
 def count():	
 	# Retrieve URL parameters
 	min = request.args.get('min', None)  # use default value replace 'None'
@@ -44,7 +46,8 @@ def count():
 	if min == None and max == None and title_keyword == None and tag_keyword == None:
 		sql_query = "SELECT g.name, COUNT(*) AS moviecount FROM genre g, movies m, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid GROUP BY g.name ORDER BY g.name;"
 	elif min != None and max != None:
-		sql_query = ""
+		sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
+		print sql_query
 	else:
 		sql_query = ""
 	result = dbengine.execute(sql_query)
