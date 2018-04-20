@@ -21,14 +21,22 @@ def average():
 	tag_keyword = request.args.get('tag', None)
 	
 	# Generate the SQL query for given parameters
-	if min == None and max == None and title_keyword == None and tag_keyword == None:
+	if min == None and max == None and title_keyword == None and tag_keyword == None: # /average
 		sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid GROUP BY g.name ORDER BY g.name;"
-	elif min != None and max != None:
-		sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
 	else:
-		sql_query = ""
+		if min != None and max != None:
+			if title_keyword != None:
+				if tag_keyword != None: # /average?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
+					sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h, tags t, taginfo ti WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} AND m.title LIKE '%{2}%' AND ti.content LIKE '%{3}%' GROUP BY g.name ORDER BY g.name;".format(min, max, title_keyword, tag_keyword)
+				else: # /average?min=<min>&max=<max>&title=<title_keyword>
+					sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} AND m.title LIKE '%{2}%' GROUP BY g.name ORDER BY g.name;".format(min, max, title_keyword)
+			elif tag_keyword != None: #/average?min=<min>&max=<max>&tag=<tag_keyword>
+				sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h, tags t, taginfo ti WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} AND ti.content LIKE '%{2}%' GROUP BY g.name ORDER BY g.name;".format(min, max, tag_keyword)
+			else: # /average?min=<min>&max=<max>	
+				sql_query = "SELECT g.name, AVG(r.rating) AS rating FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
+	
+	# Retrieve Json string and format to Json object
 	result = dbengine.execute(sql_query)
-	#print (result)
 	r = (json.dumps([dict(r) for r in result], default=alchemyencoder))
 	r = make_response(r)
 	r.headers['Content-Type'] = 'application/json'
@@ -43,13 +51,21 @@ def count():
 	tag_keyword = request.args.get('tag', None)
 	
 	# Generate the SQL query for given parameters
-	if min == None and max == None and title_keyword == None and tag_keyword == None:
+	if min == None and max == None and title_keyword == None and tag_keyword == None: # /count
 		sql_query = "SELECT g.name, COUNT(*) AS moviecount FROM genre g, movies m, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid GROUP BY g.name ORDER BY g.name;"
-	elif min != None and max != None:
-		sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
-		print sql_query
 	else:
-		sql_query = ""
+		if min != None and max != None:
+			if title_keyword != None: 
+				if tag_keyword != None: # /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
+					sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h, tags t, taginfo ti WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} AND m.title LIKE '%{2}%' AND ti.content LIKE '%{3}%' GROUP BY g.name ORDER BY g.name;".format(min, max, title_keyword, tag_keyword)
+				else: # /count?min=<min>&max=<max>&title=<title_keyword>
+					sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} AND m.title LIKE '%{2}%' GROUP BY g.name ORDER BY g.name;".format(min, max, title_keyword)
+			elif tag_keyword != None: #/count?min=<min>&max=<max>&tag=<tag_keyword>
+				sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h, tags t, taginfo ti WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} AND ti.content LIKE '%{2}%' GROUP BY g.name ORDER BY g.name;".format(min, max, tag_keyword)
+			else: # /count?min=<min>&max=<max>
+				sql_query = "SELECT g.name, COUNT(m.movieid) AS moviecount FROM genre g, movies m, ratings r, hasagenre h WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND r.rating >= {0} AND r.rating <= {1} GROUP BY g.name ORDER BY g.name;".format(min, max)
+
+	# Retrieve Json string and format to Json object
 	result = dbengine.execute(sql_query)
 	r = (json.dumps([dict(r) for r in result], default=alchemyencoder))
 	r = make_response(r)
