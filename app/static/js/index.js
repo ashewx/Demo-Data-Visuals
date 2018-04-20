@@ -54,6 +54,11 @@ const DEFAULT_BAR = {
 	};
 
 $(document).ready(function() {
+	$(document).on({
+	    ajaxStart: function() { document.getElementById("loader").style.display = "block"; },
+	    ajaxStop: function() { document.getElementById("loader").style.display = "none"; }    
+	});
+	
 	avgContext = document.getElementById("avgChart").getContext('2d');
 	countContext = document.getElementById("countChart").getContext('2d');
 	chartNoFilter();

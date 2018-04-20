@@ -3,7 +3,11 @@
 
     {% block title %}CSE 412 Graphs{% endblock %}
 	
-	{% block indexDep %}<script src="{{url_for('static', filename='js/index.js')}}"></script>{% endblock %}
+	{% block indexDep %}
+	<script src="{{url_for('static', filename='js/index.js')}}"></script>
+	
+	<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+	{% endblock %}
     
 {% block content %}
 <div class="container" id="main_content">
@@ -18,6 +22,7 @@
     <div>
 	  <canvas id="countChart"></canvas>
 	</div>
+	<div id="loader"></div>
   </main>
 
   <footer>
