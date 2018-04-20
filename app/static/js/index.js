@@ -9,7 +9,7 @@ var avgContext;
 var countContext;
 
 // Default bar chart settings
-var defaultBar = {
+const DEFAULT_BAR = {
 		type: 'horizontalBar',
 //		data: {
 //			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], Sets the labels of x-axis
@@ -68,7 +68,7 @@ function chartNoFilter() {
 		success: function(result){
 			var label = [];
 			var data = [];
-			var charOp = JSON.parse(JSON.stringify(defaultBar)); // Copy template
+			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy template
 			
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
@@ -108,7 +108,7 @@ function chartNoFilter() {
 		success: function(result){
 			var label = [];
 			var data = [];
-			var charOp = JSON.parse(JSON.stringify(defaultBar)); // Copy default template
+			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy default template
 			
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
