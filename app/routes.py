@@ -1,8 +1,9 @@
-from flask import render_template, flash, redirect, url_for, request, make_response
-from app import app, db
 import json
-from sqlalchemy import create_engine
 import decimal, datetime
+from flask import render_template, flash, redirect, url_for, request, make_response
+from sqlalchemy import create_engine
+from app import app, db
+
 
 # Connect to SQL Movie database
 dbengine = create_engine("postgres://gkkjrzsf:wN_AqVb_CsfndXNEn_j-l-cwZz86VPtU@tantor.db.elephantsql.com:5432/gkkjrzsf")
@@ -42,7 +43,7 @@ def average():
 	r.headers['Content-Type'] = 'application/json'
 	return r
 	
-@app.route('/count', methods=['GET']) # Example /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
+@app.route('/count', methods=['GET'])
 def count():	
 	# Retrieve URL parameters
 	min = request.args.get('min', None)  # use default value replace 'None'
