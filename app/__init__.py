@@ -19,9 +19,7 @@ app = Flask(__name__)
 
 app.config['DEBUG'] = True
 
-#Configuration of application, see configuration.py, choose one and uncomment.
-#app.config.from_object('configuration.ProductionConfig')
-#app.config.from_object('configuration.TestingConfig')
+#Configuration of application is located in configuration.py
 app.config.from_object(Config)
 
 bs = Bootstrap(app) #flask-bootstrap
