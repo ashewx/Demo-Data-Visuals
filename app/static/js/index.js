@@ -10,7 +10,7 @@ var countContext;
 
 // Default bar chart settings
 var defaultBar = {
-		type: 'bar',
+		type: 'horizontalBar',
 //		data: {
 //			labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"], Sets the labels of x-axis
 //			datasets: [{
@@ -90,7 +90,7 @@ function chartNoFilter() {
 			charOp.options.tooltips = {
 					callbacks: {
 						label: function(tooltipItems, data) { 
-	                        return 'Count : ' + tooltipItems.yLabel;
+	                        return 'Count : ' + tooltipItems.xLabel;
 						}
 					}
 			}
@@ -111,7 +111,7 @@ function chartNoFilter() {
 			
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
-				data.push(result[i].rating);
+				data.push(result[i].rating.toFixed(2));
 			}
 			
 			var dataset = {
@@ -129,7 +129,7 @@ function chartNoFilter() {
 			charOp.options.tooltips = {
 					callbacks: {
 						label: function(tooltipItems, data) { 
-	                        return 'Average : ' + tooltipItems.yLabel;
+	                        return 'Average : ' + tooltipItems.xLabel;
 						}
 					}
 			}
