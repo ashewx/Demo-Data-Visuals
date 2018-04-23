@@ -55,8 +55,14 @@ const DEFAULT_BAR = {
 
 $(document).ready(function() {
 	$(document).on({
-	    ajaxStart: function() { document.getElementById("loader").style.display = "block"; },
-	    ajaxStop: function() { document.getElementById("loader").style.display = "none"; }    
+	    ajaxStart: function() { 
+			document.getElementById("loader").style.display = "block";
+			document.getElementById("overlay").style.display = "block";
+		},
+	    ajaxStop: function() { 
+			document.getElementById("loader").style.display = "none";
+			document.getElementById("overlay").style.display = "none";
+		}    
 	});
 	
 	avgContext = document.getElementById("avgChart").getContext('2d');
@@ -153,4 +159,15 @@ function chartNoFilter() {
 function destroyAllCharts() {
 	avgChart.destroy();
 	countChart.destroy();
+}
+
+// Sidebar functions
+function openNav() {
+	document.getElementById("CustomBar").style.width = "400px";
+	document.getElementById("overlay").style.display = "block";
+}
+
+function closeNav() {
+	document.getElementById("CustomBar").style.width = "0";
+	document.getElementById("overlay").style.display = "none";
 }
