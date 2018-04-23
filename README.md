@@ -23,3 +23,7 @@ To see your application, access this url in your browser:
 	http://localhost:5000
 
 All configuration settings are located in: `app/configuration.py`
+
+The site is also currently deployed and hosted on Heroku and is using an ElephantSQL Cloud Postgres database to hold all movie data (this only allows 5 simultaneous connections to the database):
+
+	https://cse412-web.herokuapp.com/
