@@ -53,18 +53,21 @@ const DEFAULT_BAR = {
 		}
 	};
 
+
+
 $(document).ready(function() {
+	$("#slider").slider({ min: 1, max: 5, value: [1, 5], focus: true });
 	$(document).on({
-	    ajaxStart: function() { 
+	    ajaxStart: function() {
 			document.getElementById("loader").style.display = "block";
 			document.getElementById("overlay").style.display = "block";
 		},
-	    ajaxStop: function() { 
+	    ajaxStop: function() {
 			document.getElementById("loader").style.display = "none";
 			document.getElementById("overlay").style.display = "none";
-		}    
+		}
 	});
-	
+
 	avgContext = document.getElementById("avgChart").getContext('2d');
 	countContext = document.getElementById("countChart").getContext('2d');
 	chartNoFilter();
@@ -73,19 +76,19 @@ $(document).ready(function() {
 function chartNoFilter() {
 	// REST call for count of movies per genre
 	$.ajax({
-		url: "/count", 
+		url: "/count",
 		dataType: "json",
 		type: "GET",
 		success: function(result){
 			var label = [];
 			var data = [];
 			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy template
-			
+
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
 				data.push(result[i].moviecount);
 			}
-			
+
 			var dataset = {
 				labels: label,
 				datasets: [{
@@ -95,37 +98,37 @@ function chartNoFilter() {
 					borderWidth: 1
 				}]
 			};
-			
+
 			charOp.data = dataset;
 			charOp.options.title.text = "Number of Movies Per Genre";
 			charOp.options.tooltips = {
 					callbacks: {
-						label: function(tooltipItems, data) { 
+						label: function(tooltipItems, data) {
 	                        return 'Count : ' + tooltipItems.xLabel;
 						}
 					}
 			}
-            
+
 			// Render the chart
 			countChart = new Chart(countContext, charOp);
 		}
 	});
-	
+
 	// REST call for average movie rating per genre
 	$.ajax({
-		url: "/average", 
+		url: "/average",
 		dataType: "json",
 		type: "GET",
 		success: function(result){
 			var label = [];
 			var data = [];
 			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy default template
-			
+
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
 				data.push(result[i].rating.toFixed(2));
 			}
-			
+
 			var dataset = {
 				labels: label,
 				datasets: [{
@@ -135,21 +138,21 @@ function chartNoFilter() {
 					borderWidth: 1
 				}]
 			};
-			
+
 			charOp.data = dataset;
-			
+
 			// Set the title
 			charOp.options.title.text = "Average Rating Per Movie";
-			
+
 			// Set the tooltip template of the chart
 			charOp.options.tooltips = {
 					callbacks: {
-						label: function(tooltipItems, data) { 
+						label: function(tooltipItems, data) {
 	                        return 'Average : ' + tooltipItems.xLabel;
 						}
 					}
 			}
-			
+
 			// Render the chart
 			avgChart = new Chart(avgContext, charOp);
 		}

@@ -14,25 +14,29 @@
 
 	<!-- Add favicon to the site -->
 	<link rel="icon" type="image/png" href="{{url_for('static', filename='img/favicon.ico')}}">
-	
+
     <!-- Libraries for JS and HTML -->
     <!-- Bootstrap 4 -->
     <link href="{{url_for('static', filename='css/lib/bootstrap.css')}}" rel="stylesheet"/>
-    
+
 	<!-- Popper.js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
-	
+
     <!-- FontAwesome -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
-    
+
     <!-- jQuery -->
 	<script src="{{url_for('static', filename='js/lib/jquery-3.3.1.min.js')}}"></script>
-    
+
+  <!--Bootstrap.slider-->
+  <script src="{{url_for('static', filename='js/lib/bootstrap-slider.js')}}"></script>
+  <link href="{{url_for('static', filename='css/lib/bootstrap-slider.css')}}" rel="stylesheet"/>
+
     <!-- Chart.js -->
 	<script src="{{url_for('static', filename='js/lib/Chart.bundle.js')}}"></script>
-	
+
 	{% block indexDep %}{% endblock %}
-	
+
 </head>
 <body>
 	{% block overlay %}{% endblock %}
@@ -65,4 +69,3 @@
         <!-- End main dynamic content -->
     </div>
 </body>
-

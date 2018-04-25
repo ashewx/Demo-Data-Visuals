@@ -2,28 +2,38 @@
 {% import "bootstrap_wtf.html" as wtf %}
 
     {% block title %}CSE 412 Graphs{% endblock %}
-	
+
 	{% block indexDep %}
 	<script src="{{url_for('static', filename='js/index.js')}}"></script>
-	
+
 	<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
 	{% endblock %}
-    
+
 {% block content %}
 
 {% block overlay %}
 <div id="overlay"></div>
 <div id="CustomBar" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <div id="form">
+    <form>
+      <input id="slider" type="text"/><br/>
+      <div class="form-group">
+        <label>Title:</label>
+        <input class="form-control" type="text" name="title">
+      </div>
+      <div class="form-group">
+        <label>Tag:</label>
+        <input class="form-control" type="text" name="tag">
+      </div>
+      <input class="btn btn-default" type="submit" value="Go!">
+    </form>
+  </div>
 </div>
 {% endblock %}
 <div class="container" id="main_content">
   <header>
-      
+
   </header>
 
   <main>
@@ -39,7 +49,7 @@
   </main>
 
   <footer>
-      
+
   </footer>
 </div>
 
