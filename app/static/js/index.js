@@ -8,6 +8,9 @@ var countChart;
 var avgContext;
 var countContext;
 
+// Range slider
+var slider;
+
 // Default bar chart settings
 const DEFAULT_BAR = {
 		type: 'horizontalBar',
@@ -56,7 +59,21 @@ const DEFAULT_BAR = {
 
 
 $(document).ready(function() {
-	$("#slider").slider({ min: 1, max: 5, value: [1, 5], focus: true });
+	// Range slider setup
+	slider = document.getElementById('ratingRange');
+
+	noUiSlider.create(slider, {
+		start: [2, 4],
+		connect: true,
+		tooltips: true,
+		range: {
+			'min': 1,
+			'max': 5
+		}
+	});
+
+	
+	// Loading animation setup
 	$(document).on({
 	    ajaxStart: function() {
 			document.getElementById("loader").style.display = "block";
@@ -68,6 +85,7 @@ $(document).ready(function() {
 		}
 	});
 
+	// Chart setup
 	avgContext = document.getElementById("avgChart").getContext('2d');
 	countContext = document.getElementById("countChart").getContext('2d');
 	chartNoFilter();
@@ -172,5 +190,114 @@ function openNav() {
 
 function closeNav() {
 	document.getElementById("CustomBar").style.width = "0";
-	document.getElementById("overlay").style.display = "none";
+	if($.active <= 0){
+		document.getElementById("overlay").style.display = "none";
+	}
 }
+
+// Button Listener functions
+function resetCharts(){
+	closeNav();
+	countChart.destroy();
+	avgChart.destroy();
+	chartNoFilter();
+}
+
+function setCharts() {
+	closeNav();
+	countChart.destroy();
+	avgChart.destroy();
+	
+	// SET THE CHART DATA
+	var titkey = (document.getElementById('title').value == "") ? "" : "&title_keyword=" + document.getElementById('title').value;
+	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag_keyword=" + document.getElementById('tag').value;
+	var min = "min=" + slider.noUiSlider.get()[0];
+	var max = "&max="+ slider.noUiSlider.get()[1];
+	var countUrl = "/count?" + min + max + titkey + tagkey;
+	var avgUrl = "/average?" + min + max + titkey + tagkey;
+	
+	// REST call for count of movies per genre
+	$.ajax({
+		url: countUrl,
+		dataType: "json",
+		type: "GET",
+		success: function(result){
+			var label = [];
+			var data = [];
+			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy template
+
+			for(var i = 0; i < result.length; i++){
+				label.push(result[i].name);
+				data.push(result[i].moviecount);
+			}
+
+			var dataset = {
+				labels: label,
+				datasets: [{
+					data: data,
+					backgroundColor: 'rgba(255, 99, 132, 0.2)', // Red
+					borderColor: 'rgba(255,99,132,1)',
+					borderWidth: 1
+				}]
+			};
+
+			charOp.data = dataset;
+			charOp.options.title.text = "Number of Movies Per Genre";
+			charOp.options.tooltips = {
+					callbacks: {
+						label: function(tooltipItems, data) {
+	                        return 'Count : ' + tooltipItems.xLabel;
+						}
+					}
+			}
+
+			// Render the chart
+			countChart = new Chart(countContext, charOp);
+		}
+	});
+
+	// REST call for average movie rating per genre
+	$.ajax({
+		url: avgUrl,
+		dataType: "json",
+		type: "GET",
+		success: function(result){
+			var label = [];
+			var data = [];
+			var charOp = JSON.parse(JSON.stringify(DEFAULT_BAR)); // Copy default template
+
+			for(var i = 0; i < result.length; i++){
+				label.push(result[i].name);
+				data.push(result[i].rating.toFixed(2));
+			}
+
+			var dataset = {
+				labels: label,
+				datasets: [{
+					data: data,
+					backgroundColor: 'rgba(54, 162, 235, 0.2)', // Blue
+					borderColor: 'rgba(54, 162, 235, 1)',
+					borderWidth: 1
+				}]
+			};
+
+			charOp.data = dataset;
+
+			// Set the title
+			charOp.options.title.text = "Average Rating Per Movie";
+
+			// Set the tooltip template of the chart
+			charOp.options.tooltips = {
+					callbacks: {
+						label: function(tooltipItems, data) {
+	                        return 'Average : ' + tooltipItems.xLabel;
+						}
+					}
+			}
+
+			// Render the chart
+			avgChart = new Chart(avgContext, charOp);
+		}
+	});
+}
+

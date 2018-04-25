@@ -75,8 +75,12 @@
     margin-left: 50px;
 }
 
+.noUi-connect {
+    background: orange;
+}
+
 #form{
-	margin:16px;
+	margin: 25px;
 }
 
 @media screen and (max-height: 450px) {
