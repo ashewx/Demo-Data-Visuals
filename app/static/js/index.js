@@ -214,7 +214,7 @@ function setCharts() {
 	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag=" + document.getElementById('tag').value;
 	var min = "min=" + slider.noUiSlider.get()[0];
 	var max = "&max="+ slider.noUiSlider.get()[1];
-	var countUrl = "/count?" + nullCount + min + max + titkey + tagkey;
+	var countUrl = "/count?" + min + max + titkey + tagkey;
 	var avgUrl = "/average?" + min + max + titkey + tagkey;
 	
 	// REST call for count of ratings per genre
