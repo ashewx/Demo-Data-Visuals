@@ -105,7 +105,7 @@ function chartNoFilter() {
 
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
-				data.push(result[i].moviecount);
+				data.push(result[i].ratingcount);
 			}
 
 			var dataset = {
@@ -212,9 +212,8 @@ function setCharts() {
 	// SET THE CHART DATA
 	var titkey = (document.getElementById('title').value == "") ? "" : "&title=" + document.getElementById('title').value;
 	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag=" + document.getElementById('tag').value;
-	var min = "&min=" + slider.noUiSlider.get()[0];
+	var min = "min=" + slider.noUiSlider.get()[0];
 	var max = "&max="+ slider.noUiSlider.get()[1];
-	var nullCount = "null=" + $("#nullCount").is(":checked");
 	var countUrl = "/count?" + nullCount + min + max + titkey + tagkey;
 	var avgUrl = "/average?" + min + max + titkey + tagkey;
 	
@@ -230,7 +229,7 @@ function setCharts() {
 
 			for(var i = 0; i < result.length; i++){
 				label.push(result[i].name);
-				data.push(result[i].moviecount);
+				data.push(result[i].ratingcount);
 			}
 
 			var dataset = {
