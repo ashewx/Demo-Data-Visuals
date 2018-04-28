@@ -34,7 +34,7 @@ def average():
 				if tag_keyword != None: # /average?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>
 					sql_query = "SELECT g.name, AVG(r.rating) AS rating" \
 								" FROM genre g, movies m, ratings r, hasagenre h, tags t, taginfo ti" \
-								" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} OR r.rating = 0 AND LOWER(m.title) LIKE LOWER('%%{2}%%') AND LOWER(ti.content) LIKE LOWER('%%{3}%%')" \
+								" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND r.rating >= {0} AND r.rating <= {1} AND LOWER(m.title) LIKE LOWER('%%{2}%%') AND LOWER(ti.content) LIKE LOWER('%%{3}%%')" \
 								" GROUP BY g.name" \
 								" ORDER BY g.name;".format(min, max, title_keyword, tag_keyword)
 				else: # /average?min=<min>&max=<max>&title=<title_keyword>
