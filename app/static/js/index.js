@@ -48,6 +48,7 @@ const DEFAULT_BAR = {
 			},
 			title: {
 	            display: true,
+				fontSize: 20,
 //	            text: 'A title'
 	        },
 	        legend: {
@@ -67,7 +68,7 @@ $(document).ready(function() {
 		connect: true,
 		tooltips: true,
 		range: {
-			'min': 1,
+			'min': 0,
 			'max': 5
 		}
 	});
