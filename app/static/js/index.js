@@ -212,9 +212,10 @@ function setCharts() {
 	// SET THE CHART DATA
 	var titkey = (document.getElementById('title').value == "") ? "" : "&title=" + document.getElementById('title').value;
 	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag=" + document.getElementById('tag').value;
-	var min = "min=" + slider.noUiSlider.get()[0];
+	var min = "&min=" + slider.noUiSlider.get()[0];
 	var max = "&max="+ slider.noUiSlider.get()[1];
-	var countUrl = "/count?" + min + max + titkey + tagkey;
+	var nullCount = "null=" + $("#nullCount").is(":checked");
+	var countUrl = "/count?" + nullCount + min + max + titkey + tagkey;
 	var avgUrl = "/average?" + min + max + titkey + tagkey;
 	
 	// REST call for count of movies per genre
