@@ -83,7 +83,7 @@ def count():
 		if min != None and max != None:
 			if title_keyword != None: 
 				if tag_keyword != None: 
-					if null_keyword != None: # /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>&null=<null_keyword>
+					if null_keyword == True: # /count?min=<min>&max=<max>&title=<title_keyword>&tag=<tag_keyword>&null=<null_keyword>
 						sql_query = "SELECT g.name, COUNT(DISTINCT m.movieid) AS moviecount" \
 									" FROM genre g, movies m, hasagenre h, tags t, taginfo ti" \
 									" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND LOWER(m.title) LIKE LOWER('%%{2}%%') AND LOWER(ti.content) LIKE LOWER('%%{3}%%') AND (m.movieid IN (SELECT r.movieid FROM ratings r WHERE r.rating >= {0} AND r.rating <= {1}) OR m.movieid NOT IN (SELECT r1.movieid FROM ratings r1))" \
@@ -96,7 +96,7 @@ def count():
 									" GROUP BY g.name" \
 									" ORDER BY g.name;".format(min, max, title_keyword, tag_keyword)
 				else: 
-					if null_keyword != None: # /count?min=<min>&max=<max>&title=<title_keyword>&null=<null_keyword>
+					if null_keyword == True: # /count?min=<min>&max=<max>&title=<title_keyword>&null=<null_keyword>
 						sql_query = "SELECT g.name, COUNT(DISTINCT m.movieid) AS moviecount" \
 									" FROM genre g, movies m, hasagenre h" \
 									" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND LOWER(m.title) LIKE LOWER('%%{2}%%') AND (m.movieid IN (SELECT r.movieid FROM ratings r WHERE r.rating >= {0} AND r.rating <= {1}) OR m.movieid NOT IN (SELECT r1.movieid FROM ratings r1))" \
@@ -109,7 +109,7 @@ def count():
 									" GROUP BY g.name" \
 									" ORDER BY g.name;".format(min, max, title_keyword)
 			elif tag_keyword != None:
-				if null_keyword != None: # /count?min=<min>&max=<max>&tag=<tag_keyword>&null=<null_keyword>
+				if null_keyword == True: # /count?min=<min>&max=<max>&tag=<tag_keyword>&null=<null_keyword>
 					sql_query = "SELECT g.name, COUNT(DISTINCT m.movieid) AS moviecount" \
 								" FROM genre g, movies m, hasagenre h, tags t, taginfo ti" \
 								" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=t.movieid AND t.tagid=ti.tagid AND LOWER(ti.content) LIKE LOWER('%%{2}%%') AND (m.movieid IN (SELECT r.movieid FROM ratings r WHERE r.rating >= {0} AND r.rating <= {1}) OR m.movieid NOT IN (SELECT r1.movieid FROM ratings r1))" \
@@ -122,7 +122,7 @@ def count():
 								" GROUP BY g.name" \
 								" ORDER BY g.name;".format(min, max, tag_keyword)
 			else: 
-				if null_keyword != None: # /count?min=<min>&max=<max>&null=<null_keyword>
+				if null_keyword == True: # /count?min=<min>&max=<max>&null=<null_keyword>
 					sql_query = "SELECT g.name, COUNT(DISTINCT m.movieid) AS moviecount" \
 								" FROM genre g, movies m, hasagenre h" \
 								" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND (m.movieid IN (SELECT r.movieid FROM ratings r WHERE r.rating >= {0} AND r.rating <= {1}) OR m.movieid NOT IN (SELECT r1.movieid FROM ratings r1))" \
