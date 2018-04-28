@@ -79,8 +79,8 @@ def count():
 	# Generate the SQL query for given parameters
 	if min == None and max == None and title_keyword == None and tag_keyword == None: # /count
 		sql_query = "SELECT g.name, COUNT(*) AS moviecount" \
-					" FROM genre g, movies m, hasagenre h" \
-					" WHERE g.genreid=h.genreid AND m.movieid=h.movieid" \
+					" FROM genre g, movies m, hasagenre h, ratings r" \
+					" WHERE g.genreid=h.genreid AND m.movieid=h.movieid AND m.movieid=r.movieid" \
 					" GROUP BY g.name" \
 					" ORDER BY g.name;"
 	else:
