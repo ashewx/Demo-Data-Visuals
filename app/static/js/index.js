@@ -285,7 +285,7 @@ function setCharts() {
 			charOp.data = dataset;
 
 			// Set the title
-			charOp.options.title.text = "Average Rating Per Movie";
+			charOp.options.title.text = "Average Rating Per Genre";
 
 			// Set the tooltip template of the chart
 			charOp.options.tooltips = {
