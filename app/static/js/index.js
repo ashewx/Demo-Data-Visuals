@@ -209,8 +209,8 @@ function setCharts() {
 	avgChart.destroy();
 	
 	// SET THE CHART DATA
-	var titkey = (document.getElementById('title').value == "") ? "" : "&title_keyword=" + document.getElementById('title').value;
-	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag_keyword=" + document.getElementById('tag').value;
+	var titkey = (document.getElementById('title').value == "") ? "" : "&title=" + document.getElementById('title').value;
+	var tagkey = (document.getElementById('tag').value == "") ? "" : "&tag=" + document.getElementById('tag').value;
 	var min = "min=" + slider.noUiSlider.get()[0];
 	var max = "&max="+ slider.noUiSlider.get()[1];
 	var countUrl = "/count?" + min + max + titkey + tagkey;
