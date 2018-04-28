@@ -93,7 +93,7 @@ $(document).ready(function() {
 });
 
 function chartNoFilter() {
-	// REST call for count of movies per genre
+	// REST call for count of ratings per genre
 	$.ajax({
 		url: "/count",
 		dataType: "json",
@@ -119,7 +119,7 @@ function chartNoFilter() {
 			};
 
 			charOp.data = dataset;
-			charOp.options.title.text = "Number of Movies Per Genre";
+			charOp.options.title.text = "Number of Ratings Per Genre";
 			charOp.options.tooltips = {
 					callbacks: {
 						label: function(tooltipItems, data) {
@@ -218,7 +218,7 @@ function setCharts() {
 	var countUrl = "/count?" + nullCount + min + max + titkey + tagkey;
 	var avgUrl = "/average?" + min + max + titkey + tagkey;
 	
-	// REST call for count of movies per genre
+	// REST call for count of ratings per genre
 	$.ajax({
 		url: countUrl,
 		dataType: "json",
@@ -244,7 +244,7 @@ function setCharts() {
 			};
 
 			charOp.data = dataset;
-			charOp.options.title.text = "Number of Movies Per Genre";
+			charOp.options.title.text = "Number of Ratings Per Genre";
 			charOp.options.tooltips = {
 					callbacks: {
 						label: function(tooltipItems, data) {
