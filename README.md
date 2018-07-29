@@ -1,6 +1,6 @@
 # Demo Data Visuals
-CSE 412 Project: Movie Recommendation Database  
-Phase 3: Build a web application
+Movie Recommendation Database  
+Build a web application
 
 Our web application must be run in Python 2.7 (Don't even attempt using Python 3)
 
