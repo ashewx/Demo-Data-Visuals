@@ -1,4 +1,4 @@
-# cse412-web
+# Demo Data Visuals
 CSE 412 Project: Movie Recommendation Database  
 Phase 3: Build a web application
 
